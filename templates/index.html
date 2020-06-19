@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>AutoEMR</title>
+	
+	<style type="text/css">
+		
+		#canvas1 {
+
+		    border:2px solid black;
+		    background-color: blue;
+
+		}
+
+		#canvas2 {
+
+		    border:2px solid black;
+		    background-color: red;
+
+		}
+
+		.button {
+			  background-color: #f4511e;
+			  border: none;
+			  color: white;
+			  padding: 16px 32px;
+			  text-align: center;
+			  font-size: 16px;
+			  margin: 4px 2px;
+			  opacity: 0.6;
+			  transition: 0.3s;
+			  display: inline-block;
+			  text-decoration: none;
+			  cursor: pointer;
+			  border-radius: 12px;
+		}
+
+		.button:hover {opacity: 1}
+
+		h1 {
+			text-align: center;
+			color: red;
+		}
+
+	</style>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  	<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+  	 
+
+</head>
+<body>
+
+	<!-- <h1>Digital Prescreption Board</h1> -->
+	<br>
+	<div style="position: fixed; top: 10px; width: 100%; overflow: hidden">
+		<button class="button" onclick="symptomClick()">Symptoms</button>
+		<button class="button" onclick="diagosisClick()">Diagnosis</button>
+		<button class="button" onclick="treatmentClick()">Treatment</button>
+		<button class="button" onclick="testsClick()">Tests</button>
+		<button class="button" onclick="OthersClick()">Others</button>
+		<button class="button" onclick="uploadClick()">Upload</button>
+	</div>
+	
+	
+
+	<!-- SYMPTOMS DIV -->
+
+	<div id="div1" class="d-none" style="position: fixed; top: 100px; width: 100%">
+		<div style="position: fixed; top: 100px; width: 100%; border: 2px solid black; padding: 5px">
+			<button id="writeBtn1" class="button d-none " onclick="handleWrite1()"> Write </button>
+			<button id="eraseBtn1" class="button " onclick="handleErase1()"> Erase </button>
+			<button id="clearBtn1" class="button " onclick="handleClear1()"> Clear </button>
+		</div>
+		
+		
+		<div style="height: 1150px; width: 100%; position: fixed; top: 175px; ; border: 2px solid black; padding: 5px">
+			<p>111111111111111111</p>
+			<canvas id='canvas1'></canvas>
+				
+			
+		</div>
+	</div>
+
+	<!-- DIAGNOSIS DIV -->
+
+	<div id="div2" style="position: fixed; top: 100px; width: 100%">
+		<div style="position: fixed; top: 100px; width: 100%; border: 2px solid black; padding: 5px">
+			<button id="writeBtn2" class="button d-none " onclick="handleWrite2()"> Write </button>
+			<button id="eraseBtn2" class="button " onclick="handleErase2()"> Erase </button>
+			<button id="clearBtn2" class="button " onclick="handleClear2()"> Clear </button>
+		</div>
+		
+		
+		<div style="height: 1150px; width: 100%; position: fixed; top: 175px; ; border: 2px solid black; padding: 5px">
+			<p>222222222222222222222</p>
+			<canvas id='canvas2'></canvas>
+			
+			
+		</div>
+	</div>
+
+	<!-- TREATMENT DIV -->
+
+	<div id="div3" class="d-none" style="position: fixed; top: 100px; width: 100%">
+		<div style="position: fixed; top: 100px; width: 100%; border: 2px solid black; padding: 5px">
+			<button id="writeBtn3" class="button d-none " onclick="handleWrite3()"> Write </button>
+			<button id="eraseBtn3" class="button " onclick="handleErase3()"> Erase </button>
+			<button id="clearBtn3" class="button " onclick="handleClear3()"> Clear </button>
+		</div>
+		
+		
+		<div style="height: 1150px; width: 100%; position: fixed; top: 175px; ; border: 2px solid black; padding: 5px">
+			<canvas id='canvas3'></canvas>
+				
+			
+		</div>
+	</div>
+
+	<!-- DIAGNOSIS DIV -->
+
+	<div id="div4" class="d-none" style="position: fixed; top: 100px; width: 100%">
+		<div style="position: fixed; top: 100px; width: 100%; border: 2px solid black; padding: 5px">
+			<button id="writeBtn4" class="button d-none " onclick="handleWrite4()"> Write </button>
+			<button id="eraseBtn4" class="button " onclick="handleErase4()"> Erase </button>
+			<button id="clearBtn4" class="button " onclick="handleClear4()"> Clear </button>
+		</div>
+		
+		
+		<div style="height: 1150px; width: 100%; position: fixed; top: 175px; ; border: 2px solid black; padding: 5px">
+			<canvas id='canvas4'></canvas>
+				
+			
+		</div>
+	</div>
+
+
+	<!-- OTHER COMMENTS DIV -->
+
+	<div id="div5"  class="d-none" style="position: fixed; top: 100px; width: 100%">
+		<div style="position: fixed; top: 100px; width: 100%; border: 2px solid black; padding: 5px">
+			<button id="writeBtn5" class="button d-none " onclick="handleWrite5()"> Write </button>
+			<button id="eraseBtn5" class="button " onclick="handleErase5()"> Erase </button>
+			<button id="clearBtn5" class="button " onclick="handleClear5()"> Clear </button>
+		</div>
+		
+		
+		<div style="height: 1150px; width: 100%; position: fixed; top: 175px; ; border: 2px solid black; padding: 5px">
+			<canvas id='canvas5'></canvas>
+				
+			
+		</div>
+	</div>
+
+
+
+	<br>
+
+	<script type="text/javascript">
+		
+		function symptomClick() {
+			var div1 = document.getElementById("div1")
+			var div2 = document.getElementById("div2")
+			var div3 = document.getElementById("div3")
+			var div4 = document.getElementById("div4")
+			var div5 = document.getElementById("div5")
+
+			div1.classList.remove("d-none")
+			div2.classList.add("d-none")
+			div3.classList.add("d-none")
+			div4.classList.add("d-none")
+			div5.classList.add("d-none")
+
+		}
+
+		function diagosisClick() {
+			var div1 = document.getElementById("div1")
+			var div2 = document.getElementById("div2")
+			var div3 = document.getElementById("div3")
+			var div4 = document.getElementById("div4")
+			var div5 = document.getElementById("div5")
+
+			div2.classList.remove("d-none")
+			div1.classList.add("d-none")
+			div3.classList.add("d-none")
+			div4.classList.add("d-none")
+			div5.classList.add("d-none")
+
+		}
+
+
+	</script>
+
+	<script type="text/javascript">
+		// ----------------------------- COMMON FUNCTIONS --------------------------
+		function fitToContainer(canvas){
+		  canvas.style.width='100%';
+		  canvas.style.height='100%';
+		  canvas.width  = canvas.offsetWidth;
+		  canvas.height = canvas.offsetHeight;
+		}
+
+		function getMousePos(canvas, evt) {
+		    var rect = canvas.getBoundingClientRect();
+		    return {
+		        x: (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width,
+		        y: (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height
+		    };
+		}
+		// ----------------------------- END OF COMMON FUNCTIONS --------------------------
+
+
+
+
+		// ----------------------------- CANVAS 1 -----------------------------------------
+
+		//flag = 0 : WRITING
+		flag1 = 0
+		canvas1 = document.getElementById('canvas1');
+		writer1 = document.getElementById('writeBtn1');
+		eraser1 = document.getElementById('eraseBtn1');
+
+ 		canvas1.addEventListener('touchstart', handleStart1);
+		canvas1.addEventListener('touchmove' , handleMove1);
+		ctx1 = canvas1.getContext('2d');
+
+		var canvasOffset1=$("#canvas1").offset();
+		console.log(canvasOffset1);
+		var offsetX1=canvasOffset1.left;
+		var offsetY1=canvasOffset1.top;
+
+		fitToContainer(canvas1);
+
+		ctx1.beginPath();
+		ctx1.arc(95, 50, 40, 0, 2 * Math.PI);
+		ctx1.stroke();
+				
+		function handleStart1(e){
+            if(e.targetTouches[0].radiusX >= 0){
+                e.preventDefault();
+                var x = e.targetTouches[0].pageX;
+                var y = e.targetTouches[0].pageY;               
+                console.log(canvasOffset1)
+         		x = x - offsetX1;
+         		y = y - offsetY1;
+         		if(flag1 === 0)
+                {
+                	ctx1.fillStyle = '#100b28';
+                	ctx1.fillRect(x, y, 1, 1);
+                }
+                else
+                {
+                	ctx1.fillStyle = '#FFFFFF';
+                	ctx1.fillRect(x, y, 5, 5);
+                }
+                
+                ctx1.beginPath();
+                ctx1.moveTo(x,y);
+            }
+		}
+				
+		function handleMove1(e){
+            if(e.targetTouches[0].radiusX >= 0){
+                e.preventDefault();
+                var x = e.targetTouches[0].pageX ;
+                var y = e.targetTouches[0].pageY;
+         		x = x - offsetX1;
+         		y = y - offsetY1;
+                console.log(e.targetTouches[0])
+                ctx1.lineTo(x,y);
+                if(flag1 === 0)
+                {
+                	ctx1.strokeStyle='#100b28';
+                	ctx1.lineWidth=2;
+                }
+                else
+                {
+                	ctx1.strokeStyle='#FFFFFF';
+                	ctx1.lineWidth=20;
+                }
+                
+                ctx1.stroke();            
+            }
+            else
+            {
+                ctx1.endPath();
+            }
+        }
+
+        function handleErase1(e)
+        {        	
+           flag1 = 1
+           writer1.classList.remove("d-none")
+           eraser1.classList.add("d-none")            
+        }
+
+        function handleClear1(e)
+        {        	
+           ctx1.clearRect(0, 0, canvas1.width, canvas1.height)           
+        }
+
+        function handleWrite1(e)
+        {
+        	flag1 = 0
+        	writer1.classList.add("d-none")
+           	eraser1.classList.remove("d-none")
+        }
+
+
+        // ----------------------------- END OF CANVAS 1 --------------------
+
+
+        // ----------------------------- CANVAS 2 -----------------------------------------
+
+		//flag = 0 : WRITING
+		flag2 = 0
+		canvas2 = document.getElementById('canvas2');
+		writer2 = document.getElementById('writeBtn2');
+		eraser2 = document.getElementById('eraseBtn2');
+
+ 		canvas2.addEventListener('touchstart', handleStart2);
+		canvas2.addEventListener('touchmove' , handleMove2);
+		ctx2 = canvas2.getContext('2d');
+
+
+		var canvasOffset2=$("#canvas2").offset();
+		var offsetX2=canvasOffset2.left;
+		var offsetY2=canvasOffset2.top;
+
+		fitToContainer(canvas2);
+
+		ctx2.beginPath();
+		ctx2.arc(95, 50, 40, 0, 2 * Math.PI);
+		ctx2.stroke();
+				
+				
+		function handleStart2(e){
+            if(e.targetTouches[0].radiusX === 0){
+                e.preventDefault();
+                var x = e.targetTouches[0].pageX;
+                var y = e.targetTouches[0].pageY;               
+                console.log(canvasOffset2)
+         		x = x - offsetX2;
+         		y = y - offsetY2;
+         		if(flag2 === 0)
+                {
+                	ctx2.fillStyle = '#100b28';
+                	ctx2.fillRect(x, y, 1, 1);
+                }
+                else
+                {
+                	ctx2.fillStyle = '#FFFFFF';
+                	ctx2.fillRect(x, y, 5, 5);
+                }
+                
+                ctx2.beginPath();
+                ctx2.moveTo(x,y);
+            }
+		}
+				
+		function handleMove2(e){
+            if(e.targetTouches[0].radiusX === 0){
+                e.preventDefault();
+                var x = e.targetTouches[0].pageX ;
+                var y = e.targetTouches[0].pageY;
+         		x = x - offsetX2;
+         		y = y - offsetY2;
+                console.log(e.targetTouches[0])
+                ctx2.lineTo(x,y);
+                if(flag2 === 0)
+                {
+                	ctx2.strokeStyle='#100b28';
+                	ctx2.lineWidth=2;
+                }
+                else
+                {
+                	ctx2.strokeStyle='#FFFFFF';
+                	ctx2.lineWidth=20;
+                }
+                
+                ctx2.stroke();            
+            }
+            else
+            {
+                ctx2.endPath();
+            }
+        }
+
+        function handleErase2(e)
+        {        	
+           flag2 = 1
+           writer2.classList.remove("d-none")
+           eraser2.classList.add("d-none")            
+        }
+
+        function handleClear2(e)
+        {        	
+           ctx2.clearRect(0, 0, canvas2.width, canvas2.height)           
+        }
+
+        function handleWrite2(e)
+        {
+        	flag2 = 0
+        	writer2.classList.add("d-none")
+           	eraser2.classList.remove("d-none")
+        }
+
+
+        // ----------------------------- END OF CANVAS 2 --------------------
+	</script>
+</body>
+</html>
